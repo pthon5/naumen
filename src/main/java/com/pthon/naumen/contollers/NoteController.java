@@ -19,16 +19,26 @@ public class NoteController {
     private NotesRepository notesRepository;
 
     @PostMapping("requestNotes")
-    public String requestNotes(@RequestParam String startDate,
+    public String requestNotes(@RequestParam String search,
+                               @RequestParam String startDate,
                                @RequestParam String endDate,
                                @RequestParam(value = "dateLimit", required = false) boolean dateLimit,
                                @RequestParam int outputLimit,
                                Model model) {
         //if date empty
-        if (!dateLimit && startDate == "" || endDate == "") {
-            System.out.println("a");
+        Iterable<Notes> notes = null;
+        if (!dateLimit && !startDate.equals("") && !endDate.equals("")) {
+            if (search.equals("")) {
+                notes = notesRepository.findByDate(startDate, endDate, outputLimit);
+            } else {
+                notes = notesRepository.findByDateAndSearch(startDate, endDate, outputLimit, search);
+            }
+
         }
-        Iterable<Notes> notes = notesRepository.findAll();
+        if (dateLimit) {
+
+        }
+
         model.addAttribute("notes", notes);
         return "requestNotes";
     }

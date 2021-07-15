@@ -1,10 +1,10 @@
 package com.pthon.naumen.models;
 
 import javax.persistence.*;
-import java.sql.Blob;
 import java.util.Date;
 
 @Entity
+@Table(name = "notes")
 public class Notes {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +13,6 @@ public class Notes {
     @Column(length = 50)
     private String title;
 
-    @Column(length = 1000)
     @Lob
     private String content;
 

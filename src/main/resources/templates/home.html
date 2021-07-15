@@ -59,6 +59,12 @@
     <div class="card-body">
         <form class="form" id="searchNotes" onsubmit="ajaxSender('/requestNotes', '#searchNotes', '#tableOutput'); return false;">
             <div class="row">
+
+                <div class="form-group col-sm-12 col-md-12 col-lg-12 mx-10">
+                    <input type="search" class="search form-control" placeholder="Поиск" name="search">
+                </div>
+
+
                 <div class="form-group col-sm-12 col-md-6 col-lg-6">
                     <label>Начало</label>
                     <input id="dateStart" type="datetime-local" name="startDate" class="form-control">
@@ -74,7 +80,7 @@
                     <input id="dateLimit" type="checkbox" onchange="switchDisable('dateStart', 'dateEnd')" name="dateLimit">
                 </div>
 
-                <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group col-sm-12 col-md-3 col-lg-3">
                     <label for="outputLimit">Ограничение по записям</label>
                     <select class="form-control" id="outputLimit" name="outputLimit">
                         <option>5</option>
@@ -88,7 +94,8 @@
                     </select>
                 </div>
 
-                <div class="form-group col-sm-12 col-md-3 col-lg-3">
+
+                <div class="form-group col-sm-12 col-md-12 col-lg-12">
                     <button class="btn btn-success form-control" type="submit">Поиск</button>
                 </div>
 
