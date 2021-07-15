@@ -33,10 +33,13 @@ public class NoteController {
             } else {
                 notes = notesRepository.findByDateAndSearch(startDate, endDate, outputLimit, search);
             }
-
         }
         if (dateLimit) {
-
+            if (search.equals("")) {
+                notes = notesRepository.findWithoutDateAndSearch(outputLimit);
+            } else {
+                notes = notesRepository.findWithoutDateWithSearch(outputLimit, search);
+            }
         }
 
         model.addAttribute("notes", notes);

@@ -20,4 +20,14 @@ public interface NotesRepository extends CrudRepository<Notes, Long> {
     @Modifying
     @Query(value = "SELECT * FROM `notes` WHERE (`time` BETWEEN ?1 AND ?2) AND `title` LIKE %?4% OR `content` LIKE %?4% ORDER BY `id` DESC LIMIT ?3", nativeQuery = true)
     List<Notes> findByDateAndSearch(String startDate, String endDate, int limit, String search);
+
+    //search without date without search
+    @Modifying
+    @Query(value = "SELECT * FROM `notes` ORDER BY `id` DESC LIMIT ?1", nativeQuery = true)
+    List<Notes> findWithoutDateAndSearch(int limit);
+
+    //search without date with search
+    @Modifying
+    @Query(value = "SELECT * FROM `notes` WHERE `title` LIKE %?2% OR `content` LIKE %?2% ORDER BY `id` DESC LIMIT ?1", nativeQuery = true)
+    List<Notes> findWithoutDateWithSearch(int limit, String search);
 }
