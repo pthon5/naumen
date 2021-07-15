@@ -2,7 +2,7 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <body>
 
-    <div class="card" th:each="el : ${notes}">
+    <div style="margin-bottom: 10px;" class="card" th:each="el : ${notes}">
         <div class="card-header" th:text="${el.title}"></div>
         <div class="card-body">
             <p>Время добавления: <span th:text="${el.time}"></span></p>
@@ -15,6 +15,6 @@
             <button class="btn btn-danger" th:onclick="|requestDelete(${el.id}, confirm('Действительно хотите удалить заметку?'))|">Удалить</button>
         </div>
     </div>
-<br>
+
 </body>
 </html>
