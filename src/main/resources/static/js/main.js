@@ -14,17 +14,18 @@ function switchDisable() {
     }
 }
 
-function ajaxSender(path, formID, tableID) {
+function ajaxSender(path, formID, outputID) {
     $.ajax({
         url:     path,
         type:     "POST", //метод отправки
         dataType: "html", //формат данных
-        data: $("#"+formID).serialize(),  // Сеарилизуем объект
+        data: $(formID).serialize(),  // Сеарилизуем объект
         success: function(response, textStatus, xhr) { //Данные отправлены успешно
-            if (tableID != "") {
-
+            if (outputID != null) {
+                $(outputID).empty();
+                $(outputID).append(response);
             } else {
-                alert("Ответ от сервера: " + response.text);
+                alert("Ответ от сервера: " + response);
             }
 
         },
@@ -33,4 +34,25 @@ function ajaxSender(path, formID, tableID) {
             + "Ответ от сервера: " + response.responseText);
         }
     });
+}
+
+function requestDelete(id, confirmarion) {
+    if (!confirmarion) {
+        return;
+    }
+    $.ajax({
+        url:     "/requestDelete",
+        type:     "POST", //метод отправки
+        dataType: "html", //формат данных
+        data: {"id": id},  // Сеарилизуем объект
+        success: function(response, textStatus, xhr) { //Данные отправлены успешно
+            alert("Ответ от сервера: " + response);
+            ajaxSender('/requestNotes', '#searchNotes', '#tableOutput');
+        },
+        error: function(response, textStatus, xhr) { // Данные не отправлены
+            alert("Код ошибки: " + response.status + "\n"
+            + "Ответ от сервера: " + response.responseText);
+        }
+    });
+
 }

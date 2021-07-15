@@ -11,6 +11,7 @@
     <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/main.js}"></script>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 <body>
@@ -34,41 +35,38 @@
                     <div class="row">
                         <div class="form-group col-sm-12 col-md-6 col-lg-6">
                             <label>Заголовок</label>
-                            <input maxlength="255" type="text" name="title" class="form-control">
+                            <input maxlength="50" type="text" name="title" class="form-control">
                         </div>
 
                         <div class="form-group col-sm-12 col-md-12 col-lg-12">
                             <label>Текст заметки</label>
-                            <textarea maxlength="255" class="form-control" name="content"></textarea>
+                            <textarea maxlength="4294967295" class="form-control" name="content"></textarea>
                         </div>
 
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                    <button class="btn btn-success form-control" onclick="ajaxSender('/addNote', '#addNoteForm')" type="submit">Добавить</button>
+                    <button class="btn btn-success form-control" onclick="ajaxSender('/addNote', '#addNoteForm')" type="submit">Добавить заметку</button>
             </div>
         </div>
     </div>
 </div>
 <!--End of modal-->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNoteModal">
-    Launch demo modal
-</button>
 
 <div class="card">
-    <div class="card-header">Просмотр и удаление заметок</div>
+    <div class="card-header">Заметки</div>
     <div class="card-body">
-        <form class="form" id="addNoteForm" onsubmit="ajaxSender('/requestNotes', 'addNoteForm'); return false;">
+        <form class="form" id="searchNotes" onsubmit="ajaxSender('/requestNotes', '#searchNotes', '#tableOutput'); return false;">
             <div class="row">
                 <div class="form-group col-sm-12 col-md-6 col-lg-6">
                     <label>Начало</label>
-                    <input id="dateStart" type="datetime-local" name="start" class="form-control">
+                    <input id="dateStart" type="datetime-local" name="startDate" class="form-control">
                 </div>
 
                 <div class="form-group col-sm-12 col-md-6 col-lg-6">
                     <label>Конец</label>
-                    <input id="dateEnd" type="datetime-local" name="end" class="form-control">
+                    <input id="dateEnd" type="datetime-local" name="endDate" class="form-control">
                 </div>
 
                 <div class="form-group col-sm-12 col-md-12 col-lg-12">
@@ -90,18 +88,21 @@
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group col-sm-12 col-md-3 col-lg-3">
                     <button class="btn btn-success form-control" type="submit">Поиск</button>
                 </div>
 
             </div>
         </form>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNoteModal">
+            Добавить заметку
+        </button>
 
-        <hr/>
+        <br>
 
-        <table class="tableOutput">
+        <div id="tableOutput">
 
-        </table>
+        </div>
 
     </div>
 </div>

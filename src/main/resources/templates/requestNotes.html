@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <body>
-<table class="table">
-    <tr>
-        <th></th>
-        <th>Заголовок</th>
-        <th>Контент</th>
-        <th>Время</th>
-    </tr>
-    <tr th:each="el : ${notes}">
-        <td th:onclick="|requestDelete('${el.id}')|"><i style="color: red;" class="fa fa-trash-o" aria-hidden="true"></i></td>
-        <td th:text="${el.title}"></td>
-        <td th:text="${el.content}"></td>
-        <td th:text="${el.time}"></td>
-    </tr>
-</table>
+
+    <div class="card" th:each="el : ${notes}">
+        <div class="card-header" th:text="${el.title}"></div>
+        <div class="card-body">
+            <p>Время добавления: <span th:text="${el.time}"></span></p>
+            <details>
+                <summary>Текст заметки</summary>
+                <p style="white-space: pre-line;" th:text="${el.content}"></p>
+            </details>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-danger" th:onclick="|requestDelete(${el.id}, confirm('Действительно хотите удалить заметку?'))|">Удалить</button>
+        </div>
+    </div>
+<br>
 </body>
 </html>

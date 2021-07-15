@@ -13,6 +13,9 @@ public class Note {
         this.timeStamp = timeStamp;
     }
 
+    public Note() {
+    }
+
     public void setId(int id) {
         this.id = id;
     }

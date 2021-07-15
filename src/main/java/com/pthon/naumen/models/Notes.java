@@ -1,9 +1,7 @@
 package com.pthon.naumen.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.sql.Blob;
 import java.util.Date;
 
 @Entity
@@ -12,9 +10,25 @@ public class Notes {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title, content;
+    @Column(length = 50)
+    private String title;
+
+    @Column(length = 1000)
+    @Lob
+    private String content;
 
     private Date time;
+
+    public Notes(String title, String content, Date time) {
+        this.title = title;
+        this.content = content;
+        this.time = time;
+    }
+
+
+
+    public Notes() {
+    }
 
     public Long getId() {
         return id;

@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.sql.Blob;
+import java.util.Date;
 
 @Controller
 public class NoteController {
@@ -13,11 +18,36 @@ public class NoteController {
     @Autowired
     private NotesRepository notesRepository;
 
-    @GetMapping("requestNotes")
-    public String requestNotes(Model model) {
+    @PostMapping("requestNotes")
+    public String requestNotes(@RequestParam String startDate,
+                               @RequestParam String endDate,
+                               @RequestParam(value = "dateLimit", required = false) boolean dateLimit,
+                               @RequestParam int outputLimit,
+                               Model model) {
+        //if date empty
+        if (!dateLimit && startDate == "" || endDate == "") {
+            System.out.println("a");
+        }
         Iterable<Notes> notes = notesRepository.findAll();
         model.addAttribute("notes", notes);
         return "requestNotes";
     }
+
+    @PostMapping("addNote")
+    public String addNote(@RequestParam String title, @RequestParam String content, Model model) {
+        //current date
+        Date time = new Date();
+
+        Notes notes = new Notes(title,content, time);
+        notesRepository.save(notes);
+        return "successRequest";
+    }
+
+    @PostMapping("requestDelete")
+    public String requestDelete(@RequestParam long id, Model model) {
+        notesRepository.deleteById(id);
+        return "successRequest";
+    }
+
 
 }
