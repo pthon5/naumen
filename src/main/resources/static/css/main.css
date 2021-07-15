@@ -1,0 +1,5 @@
+.disabler {
+    -webkit-filter: blur(2px); /* Chrome, Safari, Opera */
+    filter: blur(2px);
+    pointer-events: none;
+}

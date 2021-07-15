@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Просмотр и удаление заметок</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+</head>
+<body>
+
+<header th:insert="blocks/header :: header"></header>
+
+<br>
+
+<div class="card">
+    <div class="card-header">Просмотр и удаление заметок</div>
+    <div class="card-body">
+        <form class="form" id="addNoteForm" onsubmit="ajaxSender('/requestNotes', 'addNoteForm'); return false;">
+            <div class="row">
+                <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                    <label>Начало</label>
+                    <input id="dateStart" type="datetime-local" name="start" class="form-control">
+                </div>
+
+                <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                    <label>Конец</label>
+                    <input id="dateEnd" type="datetime-local" name="end" class="form-control">
+                </div>
+
+                <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                    <label for="dateLimit">Без ограничения по дате</label>
+                    <input id="dateLimit" type="checkbox" onchange="switchDisable('dateStart', 'dateEnd')" name="dateLimit">
+                </div>
+
+                <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                    <label for="outputLimit">Ограничение по записям</label>
+                    <select class="form-control" id="outputLimit" name="outputLimit">
+                        <option>5</option>
+                        <option>10</option>
+                        <option>20</option>
+                        <option>40</option>
+                        <option>80</option>
+                        <option>160</option>
+                        <option>320</option>
+                        <option>640</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-success form-control" type="submit">Поиск</button>
+                </div>
+
+            </div>
+        </form>
+
+        <hr/>
+
+        <table class="tableOutput">
+
+        </table>
+
+    </div>
+</div>
+
+</body>
+
+<!--Disable date limit by default-->
+<script>
+$("#dateLimit").prop('checked', true);
+switchDisable('dateStart', 'dateEnd');
+</script>
+
+</html>

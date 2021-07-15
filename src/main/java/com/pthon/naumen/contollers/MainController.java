@@ -13,4 +13,10 @@ public class MainController {
         return "home";
     }
 
+    //Note view and delete page
+    @GetMapping("/viewNotes")
+    public String viewNotes(Model model) {
+        return "viewNotes";
+    }
+
 }
